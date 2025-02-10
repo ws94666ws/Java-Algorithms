@@ -7,10 +7,13 @@ import java.util.Stack;
  * @author mohd rameez github.com/rameez471
  */
 
-public class LargestRectangle {
+public final class LargestRectangle {
+    private LargestRectangle() {
+    }
 
-    public static String largestRectanglehistogram(int[] heights) {
-        int n = heights.length, maxArea = 0;
+    public static String largestRectangleHistogram(int[] heights) {
+        int n = heights.length;
+        int maxArea = 0;
         Stack<int[]> st = new Stack<>();
         for (int i = 0; i < n; i++) {
             int start = i;
@@ -29,7 +32,7 @@ public class LargestRectangle {
     }
 
     public static void main(String[] args) {
-        assert largestRectanglehistogram(new int[] {2, 1, 5, 6, 2, 3}).equals("10");
-        assert largestRectanglehistogram(new int[] {2, 4}).equals("4");
+        assert largestRectangleHistogram(new int[] {2, 1, 5, 6, 2, 3}).equals("10");
+        assert largestRectangleHistogram(new int[] {2, 4}).equals("4");
     }
 }

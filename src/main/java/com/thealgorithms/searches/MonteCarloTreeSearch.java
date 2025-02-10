@@ -39,12 +39,6 @@ public class MonteCarloTreeSearch {
     static final int WIN_SCORE = 10;
     static final int TIME_LIMIT = 500; // Time the algorithm will be running for (in milliseconds).
 
-    public static void main(String[] args) {
-        MonteCarloTreeSearch mcts = new MonteCarloTreeSearch();
-
-        mcts.monteCarloTreeSearch(mcts.new Node(null, true));
-    }
-
     /**
      * Explores a game tree using Monte Carlo Tree Search (MCTS) and returns the
      * most promising node.
@@ -78,7 +72,7 @@ public class MonteCarloTreeSearch {
 
         winnerNode = getWinnerNode(rootNode);
         printScores(rootNode);
-        System.out.format("\nThe optimal node is: %02d\n", rootNode.childNodes.indexOf(winnerNode) + 1);
+        System.out.format("%nThe optimal node is: %02d%n", rootNode.childNodes.indexOf(winnerNode) + 1);
 
         return winnerNode;
     }

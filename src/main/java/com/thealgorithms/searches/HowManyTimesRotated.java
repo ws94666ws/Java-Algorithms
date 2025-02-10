@@ -1,6 +1,6 @@
 package com.thealgorithms.searches;
 
-import java.util.*;
+import java.util.Scanner;
 
 /*
     Problem Statement:
@@ -17,7 +17,7 @@ import java.util.*;
     from its initial sorted position.
     Eg. For [2,5,6,8,11,12,15,18], 1 rotation gives [5,6,8,11,12,15,18,2], 2 rotations
    [6,8,11,12,15,18,2,5] and so on. Finding the minimum element will take O(N) time but, we can  use
-   Binary Search to find the mimimum element, we can reduce the complexity to O(log N). If we look
+   Binary Search to find the minimum element, we can reduce the complexity to O(log N). If we look
    at the rotated array, to identify the minimum element (say a[i]), we observe that
    a[i-1]>a[i]<a[i+1].
 
@@ -25,7 +25,9 @@ import java.util.*;
     1. [1,2,3,4] Number of rotations: 0 or 4(Both valid)
     2. [15,17,2,3,5] Number of rotations: 3
  */
-class HowManyTimesRotated {
+final class HowManyTimesRotated {
+    private HowManyTimesRotated() {
+    }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);

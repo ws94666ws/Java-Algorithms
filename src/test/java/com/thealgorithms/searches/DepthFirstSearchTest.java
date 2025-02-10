@@ -1,6 +1,8 @@
 package com.thealgorithms.searches;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.thealgorithms.datastructures.Node;
 import java.util.List;
@@ -52,7 +54,7 @@ public class DepthFirstSearchTest {
 
         // check value
         Optional<Node<Integer>> value = dfs.recursiveSearch(root, expectedValue);
-        assertEquals(expectedValue, value.orElse(new Node<>(null)).getValue());
+        assertEquals(expectedValue, value.orElseGet(() -> new Node<>(null)).getValue());
 
         // check path
         assertArrayEquals(expectedPath.toArray(), dfs.getVisited().toArray());
@@ -65,7 +67,7 @@ public class DepthFirstSearchTest {
 
         // check value
         Optional<Node<Integer>> value = dfs.recursiveSearch(root, expectedValue);
-        assertEquals(expectedValue, value.orElse(new Node<>(null)).getValue());
+        assertEquals(expectedValue, value.orElseGet(() -> new Node<>(null)).getValue());
 
         // check path
         assertArrayEquals(expectedPath.toArray(), dfs.getVisited().toArray());

@@ -1,6 +1,7 @@
 package com.thealgorithms.maths;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Class for linear convolution of two discrete signals using the convolution
@@ -9,7 +10,9 @@ import java.util.ArrayList;
  * @author Ioannis Karavitsis
  * @version 1.0
  */
-public class ConvolutionFFT {
+public final class ConvolutionFFT {
+    private ConvolutionFFT() {
+    }
 
     /**
      * This method pads the signal with zeros until it reaches the new size.
@@ -17,7 +20,7 @@ public class ConvolutionFFT {
      * @param x The signal to be padded.
      * @param newSize The new size of the signal.
      */
-    private static void padding(ArrayList<FFT.Complex> x, int newSize) {
+    private static void padding(Collection<FFT.Complex> x, int newSize) {
         if (x.size() < newSize) {
             int diff = newSize - x.size();
             for (int i = 0; i < diff; i++) {

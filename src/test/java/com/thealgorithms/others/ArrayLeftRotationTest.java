@@ -1,6 +1,6 @@
 package com.thealgorithms.others;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -43,5 +43,12 @@ class ArrayLeftRotationTest {
         int[] expected = {5, 8, 6, 3, 1};
         int[] result = ArrayLeftRotation.rotateLeft(arr, n);
         assertArrayEquals(expected, result);
+    }
+
+    @Test
+    void testForEmptyArray() {
+        int[] arr = {};
+        int[] result = ArrayLeftRotation.rotateLeft(arr, 3);
+        assertArrayEquals(arr, result);
     }
 }

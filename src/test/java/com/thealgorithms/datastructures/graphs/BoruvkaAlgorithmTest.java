@@ -1,6 +1,8 @@
 package com.thealgorithms.datastructures.graphs;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.thealgorithms.datastructures.graphs.BoruvkaAlgorithm.Graph;
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ public class BoruvkaAlgorithmTest {
         edges.add(new BoruvkaAlgorithm.Edge(7, 8, 11));
 
         final var graph = new Graph(9, edges);
-        /**
+        /*
          * Adjacency matrix
          *    0   1   2   3   4   5   6   7   8
          * 0  0  10  12   0   0   0   0   0   0
@@ -54,7 +56,7 @@ public class BoruvkaAlgorithmTest {
 
         final var graph = new Graph(2, edges);
 
-        /**
+        /*
          * Adjacency matrix
          *    0  1
          * 0  0  10
@@ -77,7 +79,7 @@ public class BoruvkaAlgorithmTest {
 
         final var graph = new Graph(4, edges);
 
-        /**
+        /*
          * Adjacency matrix
          *    0  1  2  3
          * 0  0  7  2  5
@@ -181,7 +183,7 @@ public class BoruvkaAlgorithmTest {
      * @param result list of edges in the Minimum Spanning Tree
      * @return the total weight of the Minimum Spanning Tree
      */
-    int computeTotalWeight(final List<BoruvkaAlgorithm.Edge> result) {
+    int computeTotalWeight(final Iterable<BoruvkaAlgorithm.Edge> result) {
         int totalWeight = 0;
         for (final var edge : result) {
             totalWeight += edge.weight;

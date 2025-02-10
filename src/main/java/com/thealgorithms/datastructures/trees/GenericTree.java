@@ -16,19 +16,20 @@ import java.util.Scanner;
  */
 public class GenericTree {
 
-    private static class Node {
+    private static final class Node {
 
         int data;
         ArrayList<Node> child = new ArrayList<>();
     }
 
     private final Node root;
+
     public GenericTree() { // Constructor
         Scanner scn = new Scanner(System.in);
-        root = create_treeG(null, 0, scn);
+        root = createTreeG(null, 0, scn);
     }
 
-    private Node create_treeG(Node node, int childIndex, Scanner scanner) {
+    private Node createTreeG(Node node, int childIndex, Scanner scanner) {
         // display
         if (node == null) {
             System.out.println("Enter root's data");
@@ -41,7 +42,7 @@ public class GenericTree {
         System.out.println("number of children");
         int number = scanner.nextInt();
         for (int i = 0; i < number; i++) {
-            Node child = create_treeG(node, i, scanner);
+            Node child = createTreeG(node, i, scanner);
             node.child.add(child);
         }
         return node;
@@ -51,17 +52,17 @@ public class GenericTree {
      * Function to display the generic tree
      */
     public void display() { // Helper function
-        display_1(root);
+        display1(root);
     }
 
-    private void display_1(Node parent) {
+    private void display1(Node parent) {
         System.out.print(parent.data + "=>");
         for (int i = 0; i < parent.child.size(); i++) {
             System.out.print(parent.child.get(i).data + " ");
         }
         System.out.println(".");
         for (int i = 0; i < parent.child.size(); i++) {
-            display_1(parent.child.get(i));
+            display1(parent.child.get(i));
         }
     }
 
@@ -225,8 +226,6 @@ public class GenericTree {
         for (int i = 0; i < node.child.size(); i++) {
             if (node.child.get(i).child.size() == 0) {
                 arr.add(i);
-                // node.child.remove(i);
-                // i--;
             } else {
                 removeleaves(node.child.get(i));
             }

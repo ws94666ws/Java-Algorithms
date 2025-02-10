@@ -2,6 +2,7 @@ package com.thealgorithms.scheduling;
 
 import com.thealgorithms.devutils.entities.ProcessDetails;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implementation of Shortest Job First Algorithm: The algorithm allows the waiting process with the
@@ -13,6 +14,18 @@ public class SJFScheduling {
     protected ArrayList<ProcessDetails> processes;
     protected ArrayList<String> schedule;
 
+    private static void sortProcessesByArrivalTime(List<ProcessDetails> processes) {
+        for (int i = 0; i < processes.size(); i++) {
+            for (int j = i + 1; j < processes.size() - 1; j++) {
+                if (processes.get(j).getArrivalTime() > processes.get(j + 1).getArrivalTime()) {
+                    final var temp = processes.get(j);
+                    processes.set(j, processes.get(j + 1));
+                    processes.set(j + 1, temp);
+                }
+            }
+        }
+    }
+
     /**
      * a simple constructor
      * @param processes a list of processes the user wants to schedule
@@ -21,20 +34,10 @@ public class SJFScheduling {
     SJFScheduling(final ArrayList<ProcessDetails> processes) {
         this.processes = processes;
         schedule = new ArrayList<>();
-        sortByArrivalTime();
+        sortProcessesByArrivalTime(this.processes);
     }
     protected void sortByArrivalTime() {
-        int size = processes.size(), i, j;
-        ProcessDetails temp;
-        for (i = 0; i < size; i++) {
-            for (j = i + 1; j < size - 1; j++) {
-                if (processes.get(j).getArrivalTime() > processes.get(j + 1).getArrivalTime()) {
-                    temp = processes.get(j);
-                    processes.set(j, processes.get(j + 1));
-                    processes.set(j + 1, temp);
-                }
-            }
-        }
+        sortProcessesByArrivalTime(processes);
     }
 
     /**
@@ -44,8 +47,12 @@ public class SJFScheduling {
     public void scheduleProcesses() {
         ArrayList<ProcessDetails> ready = new ArrayList<>();
 
-        int size = processes.size(), runtime, time = 0;
-        int executed = 0, j, k = 0;
+        int size = processes.size();
+        int runtime;
+        int time = 0;
+        int executed = 0;
+        int j;
+        int k = 0;
         ProcessDetails running;
 
         if (size == 0) {
@@ -77,25 +84,28 @@ public class SJFScheduling {
     /**
      * this function evaluates the shortest job of all the ready processes (based on  a process
      * burst time)
-     * @param ReadyProcesses an array list of ready processes
+     * @param readyProcesses an array list of ready processes
      * @return returns the process' with the shortest burst time OR NULL if there are no ready
      *     processes
      */
-    private ProcessDetails findShortestJob(ArrayList<ProcessDetails> ReadyProcesses) {
-        if (ReadyProcesses.isEmpty()) {
+    private ProcessDetails findShortestJob(List<ProcessDetails> readyProcesses) {
+        if (readyProcesses.isEmpty()) {
             return null;
         }
-        int i, size = ReadyProcesses.size();
-        int minBurstTime = ReadyProcesses.get(0).getBurstTime(), temp, positionOfShortestJob = 0;
+        int i;
+        int size = readyProcesses.size();
+        int minBurstTime = readyProcesses.get(0).getBurstTime();
+        int temp;
+        int positionOfShortestJob = 0;
 
         for (i = 1; i < size; i++) {
-            temp = ReadyProcesses.get(i).getBurstTime();
+            temp = readyProcesses.get(i).getBurstTime();
             if (minBurstTime > temp) {
                 minBurstTime = temp;
                 positionOfShortestJob = i;
             }
         }
 
-        return ReadyProcesses.get(positionOfShortestJob);
+        return readyProcesses.get(positionOfShortestJob);
     }
 }

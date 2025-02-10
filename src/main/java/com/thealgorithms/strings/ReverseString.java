@@ -3,11 +3,8 @@ package com.thealgorithms.strings;
 /**
  * Reverse String using different version
  */
-public class ReverseString {
-
-    public static void main(String[] args) {
-        assert reverse("abc123").equals("321cba");
-        assert reverse2("abc123").equals("321cba");
+public final class ReverseString {
+    private ReverseString() {
     }
 
     /**

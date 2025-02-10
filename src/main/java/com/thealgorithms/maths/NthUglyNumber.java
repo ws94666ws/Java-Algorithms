@@ -1,8 +1,10 @@
 package com.thealgorithms.maths;
 
+import static java.util.Collections.singletonList;
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Map;
+import org.apache.commons.lang3.tuple.MutablePair;
 
 /**
  * @brief class computing the n-th ugly number (when they are sorted)
@@ -15,9 +17,8 @@ import java.util.HashMap;
  *     - the base [2, 3, 5] ugly numbers are the same as base [5, 6, 2, 3, 5] ugly numbers
  */
 public class NthUglyNumber {
-    private ArrayList<Long> uglyNumbers = new ArrayList<>(Arrays.asList(1L));
-    private final int[] baseNumbers;
-    private HashMap<Integer, Integer> positions = new HashMap<>();
+    private ArrayList<Long> uglyNumbers = new ArrayList<>(singletonList(1L));
+    private ArrayList<MutablePair<Integer, Integer>> positions = new ArrayList<>();
 
     /**
      * @brief initialized the object allowing to compute ugly numbers with given base
@@ -29,9 +30,8 @@ public class NthUglyNumber {
             throw new IllegalArgumentException("baseNumbers must be non-empty.");
         }
 
-        this.baseNumbers = baseNumbers;
         for (final var baseNumber : baseNumbers) {
-            this.positions.put(baseNumber, 0);
+            this.positions.add(MutablePair.of(baseNumber, 0));
         }
     }
 
@@ -59,21 +59,21 @@ public class NthUglyNumber {
 
     private void updatePositions() {
         final var lastUglyNumber = uglyNumbers.get(uglyNumbers.size() - 1);
-        for (final var baseNumber : baseNumbers) {
-            if (computeCandidate(baseNumber) == lastUglyNumber) {
-                positions.put(baseNumber, positions.get(baseNumber) + 1);
+        for (var entry : positions) {
+            if (computeCandidate(entry) == lastUglyNumber) {
+                entry.setValue(entry.getValue() + 1);
             }
         }
     }
 
-    private long computeCandidate(final int candidateBase) {
-        return candidateBase * uglyNumbers.get(positions.get(candidateBase));
+    private long computeCandidate(final Map.Entry<Integer, Integer> entry) {
+        return entry.getKey() * uglyNumbers.get(entry.getValue());
     }
 
     private long computeMinimalCandidate() {
         long res = Long.MAX_VALUE;
-        for (final var baseNumber : baseNumbers) {
-            res = Math.min(res, computeCandidate(baseNumber));
+        for (final var entry : positions) {
+            res = Math.min(res, computeCandidate(entry));
         }
         return res;
     }

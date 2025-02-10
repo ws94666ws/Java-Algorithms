@@ -22,9 +22,9 @@ package com.thealgorithms.dynamicprogramming;
  *
  * @author SUBHAM SANGHAI
  */
-import java.util.Scanner;
-
-public class EditDistance {
+public final class EditDistance {
+    private EditDistance() {
+    }
 
     public static int minDistance(String word1, String word2) {
         int len1 = word1.length();
@@ -65,19 +65,6 @@ public class EditDistance {
         }
         /* return the final answer , after traversing through both the strings*/
         return dp[len1][len2];
-    }
-
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        String s1, s2;
-        System.out.println("Enter the First String");
-        s1 = input.nextLine();
-        System.out.println("Enter the Second String");
-        s2 = input.nextLine();
-        // ans stores the final Edit Distance between the two strings
-        int ans = minDistance(s1, s2);
-        System.out.println("The minimum Edit Distance between \"" + s1 + "\" and \"" + s2 + "\" is " + ans);
-        input.close();
     }
 
     // edit distance problem

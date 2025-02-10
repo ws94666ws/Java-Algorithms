@@ -1,5 +1,7 @@
 package com.thealgorithms.dynamicprogramming;
 
+import java.util.Arrays;
+
 /**
  * Recursive Solution for 0-1 knapsack with memoization
  * This method is basically an extension to the recursive approach so that we
@@ -15,10 +17,8 @@ public class KnapsackMemoization {
         int[][] dpTable = new int[numOfItems + 1][capacity + 1];
 
         // Loop to initially fill the table with -1
-        for (int i = 0; i < numOfItems + 1; i++) {
-            for (int j = 0; j < capacity + 1; j++) {
-                dpTable[i][j] = -1;
-            }
+        for (int[] table : dpTable) {
+            Arrays.fill(table, -1);
         }
 
         return solveKnapsackRecursive(capacity, weights, profits, numOfItems, dpTable);
@@ -38,10 +38,16 @@ public class KnapsackMemoization {
         if (weights[numOfItems - 1] > capacity) {
             // Store the value of function call stack in table
             dpTable[numOfItems][capacity] = solveKnapsackRecursive(capacity, weights, profits, numOfItems - 1, dpTable);
-            return dpTable[numOfItems][capacity];
         } else {
-            // Return value of table after storing
-            return dpTable[numOfItems][capacity] = Math.max((profits[numOfItems - 1] + solveKnapsackRecursive(capacity - weights[numOfItems - 1], weights, profits, numOfItems - 1, dpTable)), solveKnapsackRecursive(capacity, weights, profits, numOfItems - 1, dpTable));
+            // case 1. include the item, if it is less than the capacity
+            final int includeCurrentItem = profits[numOfItems - 1] + solveKnapsackRecursive(capacity - weights[numOfItems - 1], weights, profits, numOfItems - 1, dpTable);
+
+            // case 2. exclude the item if it is more than the capacity
+            final int excludeCurrentItem = solveKnapsackRecursive(capacity, weights, profits, numOfItems - 1, dpTable);
+
+            // Store the value of function call stack in table and return
+            dpTable[numOfItems][capacity] = Math.max(includeCurrentItem, excludeCurrentItem);
         }
+        return dpTable[numOfItems][capacity];
     }
 }

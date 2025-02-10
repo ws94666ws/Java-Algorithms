@@ -32,15 +32,14 @@ import java.util.List;
  * queen is not placed safely. If there is no such way then return an empty list
  * as solution
  */
-public class NQueens {
+public final class NQueens {
+    private NQueens() {
+    }
 
-    public static void main(String[] args) {
-        placeQueens(1);
-        placeQueens(2);
-        placeQueens(3);
-        placeQueens(4);
-        placeQueens(5);
-        placeQueens(6);
+    public static List<List<String>> getNQueensArrangements(int queens) {
+        List<List<String>> arrangements = new ArrayList<>();
+        getSolution(queens, arrangements, new int[queens], 0);
+        return arrangements;
     }
 
     public static void placeQueens(final int queens) {
